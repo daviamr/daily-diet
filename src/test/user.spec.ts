@@ -4,11 +4,11 @@ import { app } from "../app";
 import { execSync } from 'node:child_process';
 
 describe('test user routes', () => {
-  beforeAll(async () => { // antes de rodar os testes, aguarda o app estar pronto
+  beforeAll(async () => {
     await app.ready()
   })
 
-  afterAll(async () => { // após os testes, fechar a aplicação (remover da memória)
+  afterAll(async () => {
     await app.close()
   })
 
