@@ -3,7 +3,6 @@ import { userRoutes } from './routes/user'
 import cookie from '@fastify/cookie'
 import { dietRoutes } from './routes/diet'
 import { metricRoutes } from './routes/metric'
-import { CheckSessionId } from './middlewares/check-session-id'
 
 export const app = fastify()
 
