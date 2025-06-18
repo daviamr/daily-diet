@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx tsx watch src/server.ts",
+    "test": "vitest",
     "knex": "node --no-warnings --import tsx ./node_modules/knex/bin/cli.js"
   },
   "author": "",

@@ -25,4 +25,18 @@ describe('test user routes', () => {
     })
 
   })
+
+  test('user can authenticate', async () => {
+
+    const createUser = await request(app.server).post('/user/auth').send({
+      login: 'teste2',
+      pass: 'teste3'
+    }).expect(200)
+
+    expect(createUser.body).toEqual({
+      statusCode: 200,
+      message: 'Autenticado com sucesso.',
+    })
+
+  })
 })
