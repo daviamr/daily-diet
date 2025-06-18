@@ -2,6 +2,8 @@ import fastify from 'fastify'
 import { userRoutes } from './routes/user'
 import cookie from '@fastify/cookie'
 import { dietRoutes } from './routes/diet'
+import { metricRoutes } from './routes/metric'
+import { CheckSessionId } from './middlewares/check-session-id'
 
 export const app = fastify()
 
@@ -19,4 +21,8 @@ app.register(userRoutes, {
 
 app.register(dietRoutes, {
   prefix: 'diet'
+})
+
+app.register(metricRoutes, {
+  prefix: 'metric',
 })
