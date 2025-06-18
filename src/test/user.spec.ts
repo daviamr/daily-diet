@@ -1,6 +1,7 @@
-import { test, describe, expect, beforeAll, afterAll } from 'vitest'
+import { test, describe, expect, beforeAll, afterAll, beforeEach } from 'vitest'
 import request from 'supertest';
 import { app } from "../app";
+import { execSync } from 'node:child_process';
 
 describe('test user routes', () => {
   beforeAll(async () => { // antes de rodar os testes, aguarda o app estar pronto
@@ -9,6 +10,11 @@ describe('test user routes', () => {
 
   afterAll(async () => { // após os testes, fechar a aplicação (remover da memória)
     await app.close()
+  })
+
+  beforeEach(() => {
+    execSync('npm run knex migrate:rollback --all')
+    execSync('npm run knex migrate:latest')
   })
 
   test('user can create a account', async () => {
