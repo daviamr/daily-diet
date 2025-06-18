@@ -1,5 +1,6 @@
 import { app } from "./app";
+import { env } from "./env";
 
 app.listen({
-  port: 3333
-}).then(() => console.log('Servidor rodando no localhost:3333'))
+  port: env.API_PORT
+}).then(() => console.log(`Servidor rodando no localhost:${env.API_PORT}`))

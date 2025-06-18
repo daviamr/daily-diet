@@ -11,9 +11,10 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const envSchema = z.object({
-  NODE_ENV: z.string(),
+  NODE_ENV: z.enum(['development', 'test']).default('development'),
+  API_PORT: z.coerce.number().default(3333),
   MYSQL_HOST: z.string(),
-  MYSQL_PORT: z.coerce.number().default(3333),
+  MYSQL_PORT: z.coerce.number().default(3306),
   MYSQL_USER: z.string(),
   MYSQL_PASSWORD: z.string(),
   MYSQL_DATABASE: z.string(),
