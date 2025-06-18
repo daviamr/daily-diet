@@ -6,6 +6,43 @@ import { randomUUID } from "crypto";
 
 export async function dietRoutes(app: FastifyInstance) {
 
+  app.get('/list', { preHandler: [CheckSessionId] }, async (request, reply) => {
+    try {
+      const { meal_id } = request.query as { meal_id: string }
+      const user_id = request.user.id
+
+      if (!meal_id) {
+        const get_all_meal = await knex('meal').where({ user_id }).select()
+        return reply.status(200).send({
+          statusCode: 200,
+          message: 'Busca realizada com sucesso.',
+          list: get_all_meal
+        })
+      }
+
+      const meal = await knex('meal').where({ id: meal_id }).first()
+
+      if (meal.user_id != user_id) {
+        return reply.status(400).send({
+          statusCode: 400,
+          message: 'Você só pode visualizar suas próprias refeições.'
+        })
+      }
+
+      return reply.status(200).send({
+        statusCode: 200,
+        message: 'Busca única realizada com sucesso.',
+        meal: meal
+      })
+    } catch (error) {
+      return reply.status(400).send({
+        statusCode: 400,
+        message: 'Erro ao fazer a busca.',
+        issues: error
+      })
+    }
+  })
+
   app.post('/create', { preHandler: [CheckSessionId] }, async (request, reply) => {
     const createMealSchema = z.object({
       name: z.string().nonempty('O campo nome é obrigatório.'),
